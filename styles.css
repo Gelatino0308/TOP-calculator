@@ -17,10 +17,14 @@ body {
 #calc-body {
     height: 550px;
     width: 400px;
-    border: 5px solid black;
+    border: 15px solid darkgrey;
+    background-color: black;
+    border-radius: 10px;
 
     display: flex;
     flex-direction: column;
+    gap: 5px;
+    padding-bottom: 5px;
 }
 
 #calc-screen {
@@ -28,9 +32,65 @@ body {
     border: 5px inset darkgrey;
     background-color: lightgrey;
     font-size: 60px;
+    font-weight: 600;
     
     display: flex;
     justify-content: end;
     align-items: center;
     padding-right: 10px;
 }
+
+.keypadRow {
+    display: flex;
+    flex: 1;
+    gap: 5px;   
+    padding: 0 5px;
+    /* border: 1px solid black;  */
+}
+
+.keypadRow div {
+    flex: 1;
+    /* border: 1px solid black;  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 30px;
+    font-weight: 500;
+    border-radius: 8px;
+}
+
+#zeroBtn {
+    flex: 2;
+}
+
+.numberKeys {
+    background-color: aquamarine;
+}
+
+.arithmeticKeys {
+    background-color: darkslateblue;
+    color: white;
+}
+
+#clearBtn {
+    background-color: yellow;
+}
+
+#signBtn {
+    background-color: blue;
+}
+
+#percentBtn {
+    background-color: red;
+}
+
+#decimalBtn {
+    background-color: darkorange;
+}
+
+#equalsBtn {
+    background-color: darkgreen;
+    color: white;
+}
+
