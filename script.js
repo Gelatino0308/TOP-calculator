@@ -79,17 +79,19 @@ buttonClicked.addEventListener("click", (e) => {
     const buttonID = e.target.id;
     let currDisplayNum = parseInt(display.textContent);
 
-    if(resetScreen || display.textContent === '0') {
-        display.textContent = '';
-    }
-
     if (e.target.classList.contains("numberKeys")) {
-        resetScreen = false;
+
+        if(resetScreen || display.textContent === '0') {
+            display.textContent = '';
+        }    
+
         value = numberList[buttonID];
         populateDisplay(value);
+        resetScreen = false;
     }
 
     if(e.target.classList.contains("arithmeticKeys")) {
+
         if (firstNum) {
             if (secondNum === null) {
 
@@ -106,7 +108,9 @@ buttonClicked.addEventListener("click", (e) => {
     }
 
     if (buttonID === 'equalsBtn') {
-        calculate(currDisplayNum);
-        firstNum = null;
+        if (firstNum !== null) {
+            calculate(currDisplayNum);
+            firstNum = null;
+        }
     }
 });
