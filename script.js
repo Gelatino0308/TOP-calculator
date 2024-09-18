@@ -1,6 +1,20 @@
-let firstNum = 0;
-let secondNum = 0;
-let operator = '';
+let firstNum = null;
+let secondNum = null;
+let operator = null;
+let value = null;
+
+const numberList = {
+    'zeroBtn': 0,
+    'oneBtn': 1,
+    'twoBtn': 2,
+    'threeBtn': 3,
+    'fourBtn': 4,
+    'fiveBtn': 5,
+    'sixBtn': 6,
+    'sevenBtn': 7,
+    'eightBtn': 8,
+    'nineBtn': 9
+}
 
 
 function add(num1, num2) {
@@ -38,20 +52,14 @@ const buttonClicked = document.querySelector("#calc-body");
 
 buttonClicked.addEventListener("click", (e) => {
     
-    const numberID = e.target.id;
-    
-    const numberList = {
-        'zeroBtn': '0',
-        'oneBtn': '1',
-        'twoBtn': '2',
-        'threeBtn': '3',
-        'fourBtn': '4',
-        'fiveBtn': '5',
-        'sixBtn': '6',
-        'sevenBtn': '7',
-        'eightBtn': '8',
-        'nineBtn': '9'
+    const buttonID = e.target.id;
+
+    if(firstNum === null) {
+        display.textContent = '';
     }
 
-    display.textContent = numberList[numberID];
+    if (e.target.classList.contains("numberKeys")) {
+        value = numberList[buttonID];
+        populateDisplay(value);
+    }
 });
