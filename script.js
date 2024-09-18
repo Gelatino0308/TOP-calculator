@@ -61,7 +61,16 @@ function operate(firstNum, secondNum, operator) {
 
 function populateDisplay(displayVal) {
     display.textContent += displayVal.toString();
-    // firstNum === null || firstNum === 0? firstNum = displayVal : secondNum = displayVal;
+}
+
+function calculate (currDisplayNum) {
+    secondNum = currDisplayNum;
+    value = operate(firstNum, secondNum, operator);
+
+    display.textContent = '';
+    secondNum = null;
+    resetScreen = false;
+    populateDisplay(value);
 }
 
 
@@ -83,16 +92,9 @@ buttonClicked.addEventListener("click", (e) => {
     if(e.target.classList.contains("arithmeticKeys")) {
         if (firstNum) {
             if (secondNum === null) {
-                
-                secondNum = currDisplayNum;
-                value = operate(firstNum, secondNum, operator);
 
+                calculate(currDisplayNum);
                 firstNum = value;
-                display.textContent = '';
-                secondNum = null;
-                resetScreen = false;
-
-                populateDisplay(value);
             }
         }
         else {
@@ -104,14 +106,7 @@ buttonClicked.addEventListener("click", (e) => {
     }
 
     if (buttonID === 'equalsBtn') {
-        secondNum = currDisplayNum;
-        value = operate(firstNum, secondNum, operator);
-
+        calculate(currDisplayNum);
         firstNum = null;
-        display.textContent = '';
-        secondNum = null;
-        resetScreen = false;
-
-        populateDisplay(value);
     }
 });
