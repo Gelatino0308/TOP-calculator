@@ -2,6 +2,7 @@ let firstNum = null;
 let secondNum = null;
 let operator = null;
 let value = null;
+let resetScreen = false;
 
 const display = document.querySelector("#calc-screen");
 const buttonClicked = document.querySelector("#calc-body");
@@ -67,7 +68,7 @@ buttonClicked.addEventListener("click", (e) => {
     
     const buttonID = e.target.id;
 
-    if(firstNum === null || firstNum === 0) {
+    if(firstNum === null || firstNum === 0 || resetScreen) {
         display.textContent = '';
     }
 
@@ -78,6 +79,7 @@ buttonClicked.addEventListener("click", (e) => {
 
     if(e.target.classList.contains("arithmeticKeys")) {
         operator = operatorList[buttonID];
+        resetScreen = true;
     }
 });
 
