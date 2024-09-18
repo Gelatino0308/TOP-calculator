@@ -39,37 +39,19 @@ const buttonClicked = document.querySelector("#calc-body");
 buttonClicked.addEventListener("click", (e) => {
     
     const numberID = e.target.id;
-
-    switch(numberID) {
-        case 'zeroBtn':
-            display.textContent = '0';
-            break;
-        case 'oneBtn':
-            display.textContent = '1';
-            break;
-        case 'twoBtn':
-            display.textContent = '2';
-            break;
-        case 'threeBtn':
-            display.textContent = '3';
-            break;
-        case 'fourBtn':
-            display.textContent = '4';
-            break;
-        case 'fiveBtn':
-            display.textContent = '5';
-            break;
-        case 'sixBtn':
-            display.textContent = '6';
-            break;
-        case 'sevenBtn':
-            display.textContent = '7';
-            break;
-        case 'eightBtn':
-            display.textContent = '8';
-            break;
-        case 'nineBtn':
-            display.textContent = '9';
-            break;
+    
+    const numberList = {
+        'zeroBtn': '0',
+        'oneBtn': '1',
+        'twoBtn': '2',
+        'threeBtn': '3',
+        'fourBtn': '4',
+        'fiveBtn': '5',
+        'sixBtn': '6',
+        'sevenBtn': '7',
+        'eightBtn': '8',
+        'nineBtn': '9'
     }
+
+    display.textContent = numberList[numberID];
 });
