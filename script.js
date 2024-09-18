@@ -86,4 +86,16 @@ buttonClicked.addEventListener("click", (e) => {
         operator = operatorList[buttonID];
         resetScreen = true;
     }
+
+    if (buttonID === 'equalsBtn') {
+        secondNum = currDisplayNum;
+        value = operate(firstNum, secondNum, operator);
+
+        firstNum = value;
+        display.textContent = '';
+        secondNum = null;
+        resetScreen = false;
+
+        populateDisplay(value);
+    }
 });
