@@ -3,6 +3,9 @@ let secondNum = null;
 let operator = null;
 let value = null;
 
+const display = document.querySelector("#calc-screen");
+const buttonClicked = document.querySelector("#calc-body");
+
 const numberList = {
     'zeroBtn': 0,
     'oneBtn': 1,
@@ -47,8 +50,11 @@ function operate(firstNum, secondNum, operator) {
     }
 }
 
-const display = document.querySelector("#calc-screen");
-const buttonClicked = document.querySelector("#calc-body");
+function populateDisplay(displayVal) {
+    display.textContent += displayVal.toString();
+    firstNum === null? firstNum = value : secondNum = value;
+}
+
 
 buttonClicked.addEventListener("click", (e) => {
     
@@ -63,3 +69,4 @@ buttonClicked.addEventListener("click", (e) => {
         populateDisplay(value);
     }
 });
+
