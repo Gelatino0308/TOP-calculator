@@ -19,6 +19,13 @@ const numberList = {
     'nineBtn': 9
 }
 
+const operatorList = {
+    'addBtn': '+',
+    'subtractBtn': '-',
+    'multiplyBtn': '*',
+    'divideBtn': '/'
+}
+
 
 function add(num1, num2) {
     return num1 + num2;
@@ -52,7 +59,7 @@ function operate(firstNum, secondNum, operator) {
 
 function populateDisplay(displayVal) {
     display.textContent += displayVal.toString();
-    firstNum === null? firstNum = value : secondNum = value;
+    firstNum === null || firstNum === 0? firstNum = value : secondNum = value;
 }
 
 
@@ -60,13 +67,17 @@ buttonClicked.addEventListener("click", (e) => {
     
     const buttonID = e.target.id;
 
-    if(firstNum === null) {
+    if(firstNum === null || firstNum === 0) {
         display.textContent = '';
     }
 
     if (e.target.classList.contains("numberKeys")) {
         value = numberList[buttonID];
         populateDisplay(value);
+    }
+
+    if(e.target.classList.contains("arithmeticKeys")) {
+        operator = operatorList[buttonID];
     }
 });
 
