@@ -2,10 +2,11 @@ let firstNum = null;
 let secondNum = null;
 let operator = null;
 let value = null;
-let resetScreen = false;
+let resetScreen = true;
 
 const display = document.querySelector("#calc-screen");
 const buttonClicked = document.querySelector("#calc-body");
+const equalsBtn = document.querySelector("#equalsBtn");
 
 const numberList = {
     'zeroBtn': 0,
@@ -60,26 +61,29 @@ function operate(firstNum, secondNum, operator) {
 
 function populateDisplay(displayVal) {
     display.textContent += displayVal.toString();
-    firstNum === null || firstNum === 0? firstNum = value : secondNum = value;
+    // firstNum === null || firstNum === 0? firstNum = displayVal : secondNum = displayVal;
 }
 
 
 buttonClicked.addEventListener("click", (e) => {
     
     const buttonID = e.target.id;
+    let currDisplayNum = parseInt(display.textContent);
 
-    if(firstNum === null || firstNum === 0 || resetScreen) {
+    if(resetScreen || display.textContent === '0') {
         display.textContent = '';
     }
 
     if (e.target.classList.contains("numberKeys")) {
+        resetScreen = false;
         value = numberList[buttonID];
         populateDisplay(value);
     }
 
     if(e.target.classList.contains("arithmeticKeys")) {
+        firstNum === null? firstNum = currDisplayNum : secondNum = currDisplayNum;
+
         operator = operatorList[buttonID];
         resetScreen = true;
     }
 });
-
