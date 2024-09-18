@@ -81,7 +81,23 @@ buttonClicked.addEventListener("click", (e) => {
     }
 
     if(e.target.classList.contains("arithmeticKeys")) {
-        firstNum === null? firstNum = currDisplayNum : secondNum = currDisplayNum;
+        if (firstNum) {
+            if (secondNum === null) {
+                
+                secondNum = currDisplayNum;
+                value = operate(firstNum, secondNum, operator);
+
+                firstNum = value;
+                display.textContent = '';
+                secondNum = null;
+                resetScreen = false;
+
+                populateDisplay(value);
+            }
+        }
+        else {
+            firstNum = currDisplayNum;
+        }
 
         operator = operatorList[buttonID];
         resetScreen = true;
@@ -91,7 +107,7 @@ buttonClicked.addEventListener("click", (e) => {
         secondNum = currDisplayNum;
         value = operate(firstNum, secondNum, operator);
 
-        firstNum = value;
+        firstNum = null;
         display.textContent = '';
         secondNum = null;
         resetScreen = false;
