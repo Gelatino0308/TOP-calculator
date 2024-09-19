@@ -3,6 +3,7 @@ let secondNum = null;
 let operator = null;
 let value = null;
 let resetScreen = true;
+const maxDigits = 10;
 
 const display = document.querySelector("#calc-screen");
 const buttonClicked = document.querySelector("#calc-body");
@@ -71,7 +72,7 @@ function calculate (currDisplayNum) {
     display.textContent = '';
     secondNum = null;
     resetScreen = false;
-    populateDisplay(value);
+    populateDisplay(roundedValue);
 }
 
 function resetValues() {
@@ -89,18 +90,18 @@ buttonClicked.addEventListener("click", (e) => {
     const currDisplayNum = parseFloat(display.textContent);
 
     if (e.target.classList.contains("numberKeys")) {
-        //limit the amount of numbers to be added on the screen
         if(resetScreen || display.textContent === '0') {
             display.textContent = '';
         }    
-
         value = numberList[buttonID];
-        populateDisplay(value);
+        //limit the amount of numbers to be added on the screen
+        if (display.textContent.length < maxDigits) {
+            populateDisplay(value);   
+        }
         resetScreen = false;
     }
 
     if(e.target.classList.contains("arithmeticKeys")) {
-
         if (firstNum) {
             if (secondNum === null) {
 
@@ -130,7 +131,7 @@ buttonClicked.addEventListener("click", (e) => {
 
     if (buttonID === 'decimalBtn') {
         //disable button after one click;
-        if (!display.textContent.includes(".")) {
+        if (!display.textContent.includes(".") && !resetScreen) {
             display.textContent += '.';
         }
     }
