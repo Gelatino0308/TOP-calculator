@@ -45,17 +45,17 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
-function operate(firstNum, secondNum, operator) {
+function operate(num1, num2, sign) {
 
-    switch(operator) {
+    switch(sign) {
         case '+':
-            return add(firstNum, secondNum);
+            return add(num1, num2);
         case '-':
-            return subtract(firstNum, secondNum);
+            return subtract(num1, num2);
         case '*':
-            return multiply(firstNum, secondNum);
+            return multiply(num1, num2);
         case '/':
-            return divide(firstNum, secondNum);
+            return divide(num1, num2);
     }
 }
 
