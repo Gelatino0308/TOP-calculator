@@ -55,6 +55,7 @@ function operate(num1, num2, sign) {
         case '*':
             return multiply(num1, num2);
         case '/':
+            //deal with zero division error
             return divide(num1, num2);
     }
 }
@@ -128,7 +129,9 @@ buttonClicked.addEventListener("click", (e) => {
     }
 
     if (buttonID === 'decimalBtn') {
-        display.textContent += '.';
         //disable button after one click;
+        if (!display.textContent.includes(".")) {
+            display.textContent += '.';
+        }
     }
 });
