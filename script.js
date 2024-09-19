@@ -113,4 +113,13 @@ buttonClicked.addEventListener("click", (e) => {
             firstNum = null;
         }
     }
+
+    if (buttonID === 'clearBtn') {
+        display.textContent = '0';
+        firstNum = null;
+        secondNum = null;
+        operator = null;
+        value = null;
+        resetScreen = true;
+    } 
 });
