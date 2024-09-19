@@ -71,34 +71,67 @@ body {
     background-color: aquamarine;
 }
 
+.numberKeys:active {
+    background-color: rgb(9, 209, 143);
+}
+
 .arithmeticKeys {
     background-color: darkslateblue;
     color: white;
+}
+
+.arithmeticKeys:active {
+    background-color: rgb(58, 2, 115);
 }
 
 #clearBtn {
     background-color: yellow;
 }
 
+#clearBtn:active {
+    background-color: rgb(162, 162, 5);
+}
+
 #signBtn {
     background-color: blue;
+}
+
+#signBtn:active {
+    background-color: rgb(13, 13, 199);
 }
 
 #percentBtn {
     background-color: red;
 }
 
+#percentBtn:active {
+    background-color: rgb(211, 28, 28);
+}
+
 #deleteBtn {
     background-color: hotpink;
 }
 
+#deleteBtn:active {
+    background-color: rgb(232, 70, 151);
+}
+
 #decimalBtn {
     background-color: darkorange;
+}   
+
+#decimalBtn:active {
+    background-color: rgb(196, 114, 13);
 }
 
 #equalsBtn {
-    background-color: darkgreen;
+    background-color: green;
     color: white;
 }
+
+#equalsBtn:active {
+    background-color: rgb(4, 84, 4);
+}
+
 
 
