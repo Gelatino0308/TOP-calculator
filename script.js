@@ -69,10 +69,30 @@ function calculate (currDisplayNum) {
     secondNum = currDisplayNum;
     value = operate(firstNum, secondNum, operator);
     //round the value properly
+    let roundedValue = roundResult(value);
     display.textContent = '';
     secondNum = null;
     resetScreen = false;
     populateDisplay(roundedValue);
+}
+
+function roundResult(num) {
+
+    let numStr = num.toString();
+    
+    if (numStr.includes('e')) {
+        numStr = num.toFixed(20); 
+    }
+
+    const numParts = numStr.split(".");
+    const integerPart = numParts[0];
+
+    //convert to scientific notation for values with more than maxDigits
+    if (integerPart.length > maxDigits) {
+        return num.toExponential(3); 
+    }
+
+    return parseFloat(num.toFixed(maxDigits - integerPart.length));
 }
 
 function resetValues() {
