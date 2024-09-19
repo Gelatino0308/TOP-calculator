@@ -66,21 +66,29 @@ function populateDisplay(displayVal) {
 function calculate (currDisplayNum) {
     secondNum = currDisplayNum;
     value = operate(firstNum, secondNum, operator);
-
+    //round the value properly
     display.textContent = '';
     secondNum = null;
     resetScreen = false;
     populateDisplay(value);
 }
 
+function resetValues() {
+    firstNum = null;
+    secondNum = null;
+    operator = null;
+    value = null;
+    resetScreen = true;
+}
+
 
 buttonClicked.addEventListener("click", (e) => {
     
     const buttonID = e.target.id;
-    let currDisplayNum = parseInt(display.textContent);
+    const currDisplayNum = parseInt(display.textContent);
 
     if (e.target.classList.contains("numberKeys")) {
-
+        //limit the amount of numbers to be added on the screen
         if(resetScreen || display.textContent === '0') {
             display.textContent = '';
         }    
@@ -110,16 +118,12 @@ buttonClicked.addEventListener("click", (e) => {
     if (buttonID === 'equalsBtn') {
         if (firstNum !== null) {
             calculate(currDisplayNum);
-            firstNum = null;
+            resetValues();
         }
     }
 
     if (buttonID === 'clearBtn') {
         display.textContent = '0';
-        firstNum = null;
-        secondNum = null;
-        operator = null;
-        value = null;
-        resetScreen = true;
-    } 
+        resetValues();
+    }
 });
