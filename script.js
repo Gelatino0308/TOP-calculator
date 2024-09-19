@@ -85,7 +85,7 @@ function resetValues() {
 buttonClicked.addEventListener("click", (e) => {
     
     const buttonID = e.target.id;
-    const currDisplayNum = parseInt(display.textContent);
+    const currDisplayNum = parseFloat(display.textContent);
 
     if (e.target.classList.contains("numberKeys")) {
         //limit the amount of numbers to be added on the screen
@@ -125,5 +125,10 @@ buttonClicked.addEventListener("click", (e) => {
     if (buttonID === 'clearBtn') {
         display.textContent = '0';
         resetValues();
+    }
+
+    if (buttonID === 'decimalBtn') {
+        display.textContent += '.';
+        //disable button after one click;
     }
 });
