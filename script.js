@@ -56,13 +56,19 @@ function operate(num1, num2, sign) {
         case '*':
             return multiply(num1, num2);
         case '/':
-            //deal with zero division error
             return divide(num1, num2);
     }
 }
 
 function populateDisplay(displayVal) {
-    display.textContent += displayVal.toString();
+    //deal with zero division
+    if (!(displayVal === Infinity)) {
+        display.textContent += displayVal.toString();
+    }
+    else {
+        display.textContent = 'noob lol';
+        resetValues();
+    }
 }
 
 function calculate (currDisplayNum) {
