@@ -181,4 +181,14 @@ buttonClicked.addEventListener("click", (e) => {
     if (buttonID === 'percentBtn') {
         display.textContent = roundResult(currDisplayNum / 100);
     }
+
+    if(buttonID === 'deleteBtn') {
+        currDisplayNum = display.textContent;
+        display.textContent = currDisplayNum.slice(0, -1);
+        //reset values if all of the numbers are deleted
+        if (display.textContent.length <= 0) {
+            display.textContent += 0;
+            resetValues();
+        }
+    }
 });
