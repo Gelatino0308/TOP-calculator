@@ -5,6 +5,7 @@ let value = null;
 let resetScreen = true;
 const maxDigits = 10;
 const zeroDivisionMessage = "noob lol";
+const isPositive = true;
 
 const display = document.querySelector("#calc-screen");
 const buttonClicked = document.querySelector("#calc-body");
@@ -171,5 +172,9 @@ buttonClicked.addEventListener("click", (e) => {
         if (!display.textContent.includes(".") && !resetScreen) {
             display.textContent += '.';
         }
+    }
+
+    if (buttonID === 'signBtn') {
+        display.textContent = -currDisplayNum;
     }
 });
