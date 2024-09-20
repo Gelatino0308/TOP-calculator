@@ -4,6 +4,7 @@ let operator = null;
 let value = null;
 let resetScreen = true;
 const maxDigits = 10;
+const zeroDivisionMessage = "noob lol";
 
 const display = document.querySelector("#calc-screen");
 const buttonClicked = document.querySelector("#calc-body");
@@ -66,7 +67,7 @@ function populateDisplay(displayVal) {
         display.textContent += displayVal.toString();
     }
     else {
-        display.textContent = 'noob lol';
+        display.textContent = zeroDivisionMessage;
         resetValues();
     }
 }
@@ -113,7 +114,15 @@ function resetValues() {
 buttonClicked.addEventListener("click", (e) => {
     
     const buttonID = e.target.id;
-    const currDisplayNum = parseFloat(display.textContent);
+    let currDisplayNum;
+
+    //check if current display value is a number or a message
+    if (!(display.textContent === zeroDivisionMessage)) {
+        currDisplayNum = parseFloat(display.textContent);
+    }
+    else {
+        currDisplayNum = display.textContent;
+    }
 
     if (e.target.classList.contains("numberKeys")) {
         if(resetScreen || display.textContent === '0') {
@@ -128,15 +137,17 @@ buttonClicked.addEventListener("click", (e) => {
     }
 
     if(e.target.classList.contains("arithmeticKeys")) {
-        if (firstNum) {
-            if (secondNum === null) {
-
-                calculate(currDisplayNum);
-                firstNum = value;
+        if (!(typeof(currDisplayNum) === 'string')) {
+            if (firstNum) {
+                if (secondNum === null) {
+    
+                    calculate(currDisplayNum);
+                    firstNum = value;
+                }
             }
-        }
-        else {
-            firstNum = currDisplayNum;
+            else {
+                firstNum = currDisplayNum;
+            }
         }
 
         operator = operatorList[buttonID];
