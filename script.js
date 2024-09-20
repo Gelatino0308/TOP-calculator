@@ -177,4 +177,8 @@ buttonClicked.addEventListener("click", (e) => {
     if (buttonID === 'signBtn') {
         display.textContent = -currDisplayNum;
     }
+
+    if (buttonID === 'percentBtn') {
+        display.textContent = roundResult(currDisplayNum / 100);
+    }
 });
