@@ -74,7 +74,7 @@ body {
     color: white;
 }
 
-.arithmeticKeys:active {
+.arithmeticKeys:focus {
     background-color: rgb(58, 2, 115);
 }
 
