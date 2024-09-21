@@ -15,9 +15,10 @@ body {
 }
 
 #calc-body {
-    height: 600px;
+    height: 650px;
     width: 450px;
     border: 20px solid rgb(148, 147, 147);
+    border-top-width: 10px;
     background-color: black;
     border-radius: 10px;
     box-shadow: 8px 8px 10px black;
@@ -28,13 +29,35 @@ body {
     padding-bottom: 8px;
 }
 
+#calc-header {
+    display: flex;
+    background-color: rgb(148, 147, 147);
+    margin-bottom: -8px;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+#calc-name {
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: white;
+}
+
+#solar-panel {
+    background: linear-gradient(to bottom right, darkgoldenrod, darkviolet);
+    border: 5px inset darkgray;
+    width: 150px;
+    color: gray;
+}
+
 #calc-screen {
     height: 100px;
     border: 5px inset darkgrey;
     background-color: lightgrey;
     font-size: 65px;
     font-weight: 600;
-    background: linear-gradient(to top left, rgb(169, 169, 169, 1), whitesmoke);
+    background: linear-gradient(to top left, lightgreen, whitesmoke);
     
     display: flex;
     justify-content: end;
