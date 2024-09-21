@@ -174,7 +174,9 @@ buttonClicked.addEventListener("click", (e) => {
 
     if (buttonID === 'decimalBtn') {
         //disable button after one click;
-        if (!display.textContent.includes(".") && !resetScreen) {
+        if (!display.textContent.includes(".") && !resetScreen && 
+            display.textContent.length < maxDigits) 
+        {
             display.textContent += '.';
         }
     }
