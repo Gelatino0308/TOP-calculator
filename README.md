@@ -1,4 +1,4 @@
-# TOP-calculator
+# TOP-calculator ➕➖✖️➗
 This is the final project developed to comply for The Odin Project's foundations course. Just like any web developer and learner that made a project like this, my on-screen calculator serves as the culmination of all the things I learned so far from TOP. The design is inspired by Casio's scientific calculator, which is something I have used all throughout my studying career. 
 
 Back to this project, the following are the skills I put into practice during its development:
@@ -11,7 +11,10 @@ Back to this project, the following are the skills I put into practice during it
 
 ---
 
-### Features
+## User Interface
+![calc-UI](calc-UI.png)
+
+## Features
 
 The calculator has 2 main section:
 
@@ -27,9 +30,7 @@ The calculator has 2 main section:
     * *Decimal Point Button ( . )* - Appends a decimal point in the display screen. Will not work if the currently displayed value already has it. Corresponding keyboard key is "**.**" .
     * *Equal Sign Button (=)* - Triggers the computation of the result and its display on the screen. Corresponding keyboard key is '**=**' or '**Enter**';
 
----
+## Acknowledgement
 
-### Acknowledgement
-
-I would like to personally express my gratitude for The Odin Project community and their contributors for making self-paced learning manageable and informative.
+I would like to personally express my gratitude for The Odin Project community and their contributors for making self-paced learning manageable and informative 💗.
 
