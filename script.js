@@ -97,8 +97,8 @@ function roundResult(num) {
     //get length of integer part to determine available decimal space 
     const numParts = numStr.split(".");
     const integerPart = numParts[0];
-
-    //convert to scientific notation for values with more than maxDigits
+    //convert to scientific notation (3 significant figures)
+    //for values with more than maxDigits
     if (integerPart.length > maxDigits) {
         return num.toExponential(3); 
     }
@@ -143,12 +143,9 @@ buttonClicked.addEventListener("click", (e) => {
     // ===== CLICKS AN ARITHMETIC KEY =====
     if(e.target.classList.contains("arithmeticKeys")) {
         if (!(typeof(currDisplayNum) === 'string')) {
-            if (firstNum) {
-                if (secondNum === null) {
-    
-                    getSecondVal(currDisplayNum);
-                    firstNum = value;
-                }
+            if (firstNum && secondNum === null) {
+                getSecondVal(currDisplayNum);
+                firstNum = value;
             }
             else {
                 firstNum = currDisplayNum;
@@ -160,11 +157,9 @@ buttonClicked.addEventListener("click", (e) => {
     }
 
     // ===== CLICKS A MISCELLANEOUS KEY =====
-    if (buttonID === 'equalsBtn') {
-        if (firstNum !== null) {
-            getSecondVal(currDisplayNum);
-            resetValues();
-        }
+    if (buttonID === 'equalsBtn' && firstNum !== null) {
+        getSecondVal(currDisplayNum);
+        resetValues();
     }
 
     if (buttonID === 'clearBtn') {
