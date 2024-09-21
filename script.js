@@ -1,3 +1,4 @@
+// ===== INITIALIZATIONS =====
 let firstNum = null;
 let secondNum = null;
 let operator = null;
@@ -7,10 +8,11 @@ const maxDigits = 10;
 const zeroDivisionMessage = "noob lol";
 const isPositive = true;
 
+// ===== DOM TARGET SELECTIONS =====
 const display = document.querySelector("#calc-screen");
 const buttonClicked = document.querySelector("#calc-body");
-const equalsBtn = document.querySelector("#equalsBtn");
 
+//objects to map IDs to corresponding values
 const numberList = {
     'zeroBtn': 0,
     'oneBtn': 1,
@@ -31,7 +33,7 @@ const operatorList = {
     'divideBtn': '/'
 }
 
-
+// ===== OPERATOR FUNCTIONS =====
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -48,6 +50,7 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
+//maps chosen operator button to corresponding function
 function operate(num1, num2, sign) {
 
     switch(sign) {
@@ -63,7 +66,7 @@ function operate(num1, num2, sign) {
 }
 
 function populateDisplay(displayVal) {
-    //deal with zero division
+    //deals with zero division
     if (!(displayVal === Infinity)) {
         display.textContent += displayVal.toString();
     }
@@ -73,11 +76,12 @@ function populateDisplay(displayVal) {
     }
 }
 
-function calculate (currDisplayNum) {
+function getSecondVal (currDisplayNum) {
     secondNum = currDisplayNum;
     value = operate(firstNum, secondNum, operator);
     //round the value properly
     let roundedValue = roundResult(value);
+    //reset second value for continuous computation
     display.textContent = '';
     secondNum = null;
     resetScreen = false;
@@ -85,13 +89,12 @@ function calculate (currDisplayNum) {
 }
 
 function roundResult(num) {
-
     let numStr = num.toString();
-    
+    //extends values in scientific notation to long decimal form
     if (numStr.includes('e')) {
         numStr = num.toFixed(20); 
     }
-
+    //get length of integer part to determine available decimal space 
     const numParts = numStr.split(".");
     const integerPart = numParts[0];
 
@@ -111,38 +114,39 @@ function resetValues() {
     resetScreen = true;
 }
 
-
+//executes corresponding code based on the clicked button's id or class
 buttonClicked.addEventListener("click", (e) => {
-    
     const buttonID = e.target.id;
     let currDisplayNum;
 
-    //check if current display value is a number or a message
+    //prevents string message from being parsed and returning NaN
     if (!(display.textContent === zeroDivisionMessage)) {
         currDisplayNum = parseFloat(display.textContent);
     }
     else {
         currDisplayNum = display.textContent;
     }
-
+    
+    // ===== CLICKS A NUMBER KEY =====
     if (e.target.classList.contains("numberKeys")) {
         if(resetScreen || display.textContent === '0') {
             display.textContent = '';
         }    
         value = numberList[buttonID];
-        //limit the amount of numbers to be added on the screen
+        //limits the amount of numbers to be added on the screen
         if (display.textContent.length < maxDigits) {
             populateDisplay(value);   
         }
         resetScreen = false;
     }
 
+    // ===== CLICKS AN ARITHMETIC KEY =====
     if(e.target.classList.contains("arithmeticKeys")) {
         if (!(typeof(currDisplayNum) === 'string')) {
             if (firstNum) {
                 if (secondNum === null) {
     
-                    calculate(currDisplayNum);
+                    getSecondVal(currDisplayNum);
                     firstNum = value;
                 }
             }
@@ -155,9 +159,10 @@ buttonClicked.addEventListener("click", (e) => {
         resetScreen = true;
     }
 
+    // ===== CLICKS A MISCELLANEOUS KEY =====
     if (buttonID === 'equalsBtn') {
         if (firstNum !== null) {
-            calculate(currDisplayNum);
+            getSecondVal(currDisplayNum);
             resetValues();
         }
     }
@@ -183,6 +188,7 @@ buttonClicked.addEventListener("click", (e) => {
     }
 
     if(buttonID === 'deleteBtn') {
+        //deletes rightmost digit or decimal point
         currDisplayNum = display.textContent;
         display.textContent = currDisplayNum.slice(0, -1);
         //reset values if all of the numbers are deleted
