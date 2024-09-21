@@ -6,7 +6,8 @@ let value = null;
 let resetScreen = true;
 const maxDigits = 10;
 const zeroDivisionMessage = "noob lol";
-const isPositive = true;
+const strDigits = "0123456789";
+const strOperators = "+-*/";
 
 // ===== DOM TARGET SELECTIONS =====
 const display = document.querySelector("#calc-screen");
@@ -65,6 +66,7 @@ function operate(num1, num2, sign) {
     }
 }
 
+//===== HELPER FUNCTIONS =====
 function populateDisplay(displayVal) {
     //deals with zero division
     if (!(displayVal === Infinity)) {
@@ -76,8 +78,8 @@ function populateDisplay(displayVal) {
     }
 }
 
-function getSecondVal (currDisplayNum) {
-    secondNum = currDisplayNum;
+function getSecondVal (currDisplayVal) {
+    secondNum = currDisplayVal;
     value = operate(firstNum, secondNum, operator);
     //round the value properly
     let roundedValue = roundResult(value);
@@ -114,84 +116,101 @@ function resetValues() {
     resetScreen = true;
 }
 
-//executes corresponding code based on the clicked button's id or class
-buttonClicked.addEventListener("click", (e) => {
-    const buttonID = e.target.id;
-    let currDisplayNum;
-
+function checkZeroDivision () {
     //prevents string message from being parsed and returning NaN
     if (!(display.textContent === zeroDivisionMessage)) {
-        currDisplayNum = parseFloat(display.textContent);
+        return parseFloat(display.textContent);
     }
     else {
-        currDisplayNum = display.textContent;
+        return display.textContent;
     }
+}
+
+// ===== CALCULATOR FUNCTIONS =====
+function enterDigit (value) {
+    if(resetScreen || display.textContent === '0') {
+        display.textContent = '';
+    }    
+    //limits the amount of numbers to be added on the screen
+    if (display.textContent.length < maxDigits) {
+        populateDisplay(value);   
+    }
+    resetScreen = false;
+}
+
+function doArithmetic (currDisplayVal, operatorVal) {
+    if (!(typeof(currDisplayVal) === 'string')) {
+        if (firstNum && secondNum === null) {
+            getSecondVal(currDisplayVal);
+            firstNum = value;
+        }
+        else {
+            firstNum = currDisplayVal;
+        }
+    }
+
+    operator = operatorVal;
+    resetScreen = true;
+}
+
+function resolveEqual (currDisplayVal) {
+    getSecondVal(currDisplayVal);
+    resetValues();
+}
+
+function resolveClear() {
+    display.textContent = '0';
+    resetValues();
+}
+
+function insertDecimal () {
+    //disable button after one click;
+    if (!display.textContent.includes(".") && !resetScreen && 
+        display.textContent.length < maxDigits) 
+    {
+        display.textContent += '.';
+    }
+}
+
+function removeLastChar () {
+    //deletes rightmost digit or decimal point
+    const currDisplay = display.textContent;
+    display.textContent = currDisplay.slice(0, -1);
+    //reset values if all of the numbers are deleted
+    if (display.textContent.length <= 0) {
+        display.textContent += 0;
+        resetValues();
+    }
+}
+
+// ===== BUTTON EVENT LISTENER =====
+//executes corresponding code based on the clicked button's id or class
+buttonClicked.addEventListener("click", (e) => {
+
+    const buttonID = e.target.id;
+    let currDisplayVal = checkZeroDivision();
     
-    // ===== CLICKS A NUMBER KEY =====
+    //triggers when a number button is clicked
     if (e.target.classList.contains("numberKeys")) {
-        if(resetScreen || display.textContent === '0') {
-            display.textContent = '';
-        }    
-        value = numberList[buttonID];
-        //limits the amount of numbers to be added on the screen
-        if (display.textContent.length < maxDigits) {
-            populateDisplay(value);   
-        }
-        resetScreen = false;
-    }
-
-    // ===== CLICKS AN ARITHMETIC KEY =====
-    if(e.target.classList.contains("arithmeticKeys")) {
-        if (!(typeof(currDisplayNum) === 'string')) {
-            if (firstNum && secondNum === null) {
-                getSecondVal(currDisplayNum);
-                firstNum = value;
-            }
-            else {
-                firstNum = currDisplayNum;
-            }
-        }
-
-        operator = operatorList[buttonID];
-        resetScreen = true;
-    }
-
-    // ===== CLICKS A MISCELLANEOUS KEY =====
-    if (buttonID === 'equalsBtn' && firstNum !== null) {
-        getSecondVal(currDisplayNum);
-        resetValues();
-    }
-
-    if (buttonID === 'clearBtn') {
-        display.textContent = '0';
-        resetValues();
-    }
-
-    if (buttonID === 'decimalBtn') {
-        //disable button after one click;
-        if (!display.textContent.includes(".") && !resetScreen && 
-            display.textContent.length < maxDigits) 
-        {
-            display.textContent += '.';
-        }
-    }
-
-    if (buttonID === 'signBtn') {
-        display.textContent = -currDisplayNum;
-    }
-
-    if (buttonID === 'percentBtn') {
-        display.textContent = roundResult(currDisplayNum / 100);
-    }
-
-    if(buttonID === 'deleteBtn') {
-        //deletes rightmost digit or decimal point
-        currDisplayNum = display.textContent;
-        display.textContent = currDisplayNum.slice(0, -1);
-        //reset values if all of the numbers are deleted
-        if (display.textContent.length <= 0) {
-            display.textContent += 0;
-            resetValues();
-        }
+        value = numberList[buttonID]
+        enterDigit(value);
+    } 
+    //triggers when an operator button is clicked
+    else if(e.target.classList.contains("arithmeticKeys")) {
+        doArithmetic(currDisplayVal, operatorList[buttonID]);
+    } 
+    //triggers when other miscellaneous buttons is clicked
+    else if (buttonID === 'equalsBtn' && firstNum !== null) {
+        resolveEqual(currDisplayVal);
+    } else if (buttonID === 'clearBtn') {
+        resolveClear();
+    } else if (buttonID === 'decimalBtn') {
+        insertDecimal();
+    } else if (buttonID === 'signBtn') {
+        display.textContent = -currDisplayVal;
+    } else if (buttonID === 'percentBtn') {
+        display.textContent = roundResult(currDisplayVal / 100);
+    } else if(buttonID === 'deleteBtn') {
+        removeLastChar();
     }
 });
