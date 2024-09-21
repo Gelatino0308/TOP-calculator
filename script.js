@@ -175,7 +175,9 @@ function insertDecimal () {
 function removeLastChar () {
     //deletes rightmost digit or decimal point
     const currDisplay = display.textContent;
-    display.textContent = currDisplay.slice(0, -1);
+    if (currDisplay !== zeroDivisionMessage) {
+        display.textContent = currDisplay.slice(0, -1);
+    }
     //reset values if all of the numbers are deleted
     if (display.textContent.length <= 0) {
         display.textContent += 0;
