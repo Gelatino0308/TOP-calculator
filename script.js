@@ -66,7 +66,7 @@ function operate(num1, num2, sign) {
     }
 }
 
-//===== HELPER FUNCTIONS =====
+// ===== HELPER FUNCTIONS =====
 function populateDisplay(displayVal) {
     //deals with zero division
     if (!(displayVal === Infinity)) {
@@ -211,6 +211,32 @@ buttonClicked.addEventListener("click", (e) => {
     } else if (buttonID === 'percentBtn') {
         display.textContent = roundResult(currDisplayVal / 100);
     } else if(buttonID === 'deleteBtn') {
+        removeLastChar();
+    }
+});
+
+// ===== KEYBOARD SUPPORT EVENT LISTENER =====
+// executes corresponding code based on the keydown in keyboard
+window.addEventListener("keydown", (event) => {
+
+    const clickedKey = event.key;
+    let currDisplayVal = checkZeroDivision();
+
+    if (strDigits.includes(clickedKey)) {
+        enterDigit(parseInt(clickedKey));
+    } else if (strOperators.includes(clickedKey)) {
+        doArithmetic(currDisplayVal, clickedKey);
+    } else if (clickedKey === '=' || clickedKey === 'Enter') {
+        resolveEqual(currDisplayVal);
+    } else if (clickedKey === 'Escape' || clickedKey === 'Clear') {
+        resolveClear();
+    } else if (clickedKey === '.') {
+        insertDecimal();
+    } else if (clickedKey === 'ArrowUp') {
+        display.textContent = -currDisplayVal;
+    } else if (clickedKey === '%') {
+        display.textContent = roundResult(currDisplayVal / 100);
+    } else if (clickedKey === 'Backspace') {
         removeLastChar();
     }
 });
