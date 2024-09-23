@@ -154,8 +154,10 @@ function doArithmetic (currDisplayVal, operatorVal) {
 }
 
 function resolveEqual (currDisplayVal) {
-    getSecondVal(currDisplayVal);
-    resetValues();
+    if (firstNum !== null) {
+        getSecondVal(currDisplayVal);
+        resetValues();
+    }
 }
 
 function resolveClear() {
@@ -202,7 +204,7 @@ buttonClicked.addEventListener("click", (e) => {
         doArithmetic(currDisplayVal, operatorList[buttonID]);
     } 
     //triggers when other miscellaneous buttons is clicked
-    else if (buttonID === 'equalsBtn' && firstNum !== null) {
+    else if (buttonID === 'equalsBtn') {
         resolveEqual(currDisplayVal);
     } else if (buttonID === 'clearBtn') {
         resolveClear();
