@@ -117,8 +117,12 @@ function resetValues() {
 }
 
 function checkZeroDivision () {
+    return display.textContent === zeroDivisionMessage? true : false;
+}
+
+function parseDisplay () {
     //prevents string message from being parsed and returning NaN
-    if (!(display.textContent === zeroDivisionMessage)) {
+    if (!checkZeroDivision()) {
         return parseFloat(display.textContent);
     }
     else {
@@ -177,7 +181,7 @@ function insertDecimal () {
 function removeLastChar () {
     //deletes rightmost digit or decimal point
     const currDisplay = display.textContent;
-    if (currDisplay !== zeroDivisionMessage) {
+    if (!checkZeroDivision()) {
         display.textContent = currDisplay.slice(0, -1);
     }
     //reset values if all of the numbers are deleted
@@ -192,7 +196,7 @@ function removeLastChar () {
 buttonClicked.addEventListener("click", (e) => {
 
     const buttonID = e.target.id;
-    let currDisplayVal = checkZeroDivision();
+    let currDisplayVal = parseDisplay();
     
     //triggers when a number button is clicked
     if (e.target.classList.contains("numberKeys")) {
@@ -211,11 +215,11 @@ buttonClicked.addEventListener("click", (e) => {
     } else if (buttonID === 'decimalBtn') {
         insertDecimal();
     } else if (buttonID === 'signBtn') {
-        if (currDisplayVal !== zeroDivisionMessage) {
+        if (!checkZeroDivision()) {
             display.textContent = -currDisplayVal;
         }
     } else if (buttonID === 'percentBtn') {
-        if (currDisplayVal !== zeroDivisionMessage) {
+        if (!checkZeroDivision()) {
             display.textContent = roundResult(currDisplayVal / 100);
         }
     } else if(buttonID === 'deleteBtn') {
@@ -228,7 +232,7 @@ buttonClicked.addEventListener("click", (e) => {
 window.addEventListener("keydown", (event) => {
 
     const clickedKey = event.key;
-    let currDisplayVal = checkZeroDivision();
+    let currDisplayVal = parseDisplay();
 
     if (strDigits.includes(clickedKey)) {
         enterDigit(parseInt(clickedKey));
@@ -241,11 +245,11 @@ window.addEventListener("keydown", (event) => {
     } else if (clickedKey === '.') {
         insertDecimal();
     } else if (clickedKey === 'ArrowUp') {
-        if (currDisplayVal !== zeroDivisionMessage) {
+        if (!checkZeroDivision()) {
             display.textContent = -currDisplayVal;
         }
     } else if (clickedKey === '%') {
-        if (currDisplayVal !== zeroDivisionMessage) {
+        if (!checkZeroDivision()) {
             display.textContent = roundResult(currDisplayVal / 100);
         }
     } else if (clickedKey === 'Backspace') {
