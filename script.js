@@ -211,9 +211,13 @@ buttonClicked.addEventListener("click", (e) => {
     } else if (buttonID === 'decimalBtn') {
         insertDecimal();
     } else if (buttonID === 'signBtn') {
-        display.textContent = -currDisplayVal;
+        if (currDisplayVal !== zeroDivisionMessage) {
+            display.textContent = -currDisplayVal;
+        }
     } else if (buttonID === 'percentBtn') {
-        display.textContent = roundResult(currDisplayVal / 100);
+        if (currDisplayVal !== zeroDivisionMessage) {
+            display.textContent = roundResult(currDisplayVal / 100);
+        }
     } else if(buttonID === 'deleteBtn') {
         removeLastChar();
     }
@@ -237,9 +241,13 @@ window.addEventListener("keydown", (event) => {
     } else if (clickedKey === '.') {
         insertDecimal();
     } else if (clickedKey === 'ArrowUp') {
-        display.textContent = -currDisplayVal;
+        if (currDisplayVal !== zeroDivisionMessage) {
+            display.textContent = -currDisplayVal;
+        }
     } else if (clickedKey === '%') {
-        display.textContent = roundResult(currDisplayVal / 100);
+        if (currDisplayVal !== zeroDivisionMessage) {
+            display.textContent = roundResult(currDisplayVal / 100);
+        }
     } else if (clickedKey === 'Backspace') {
         removeLastChar();
     }
